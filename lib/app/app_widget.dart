@@ -13,7 +13,10 @@ class AppWidget extends StatelessWidget {
       designSize: const Size(390, 844),
       builder: () => MaterialApp(
         initialRoute: '/auth/',
-        builder: asuka.builder,
+        builder: (context, widget) {
+          ScreenUtil.setContext(context);
+          return asuka.builder(context, widget);
+        },
         navigatorObservers: [
           asuka.asukaHeroController,
         ],

@@ -6,7 +6,7 @@ class UiConfig {
   static String get title => 'Cuidapet';
 
   static ThemeData get theme => ThemeData(
-        primaryColor: const Color(0xFFA8CE48),
+        primaryColor: const Color(0xFFA8CE4B),
         primaryColorDark: const Color(0xFF689F38),
         primaryColorLight: const Color(0xFFDDEDC7),
       );

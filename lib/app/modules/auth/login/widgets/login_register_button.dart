@@ -29,7 +29,7 @@ class LoginRegisterButton extends StatelessWidget {
           title: 'Google',
         ),
         CuidapetRoundedButtonWithIcon(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, '/auth/register/'),
           color: context.primaryColorDark,
           icon: Icons.mail,
           width: .42.sw,

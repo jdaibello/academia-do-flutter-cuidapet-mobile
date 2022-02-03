@@ -24,7 +24,8 @@ class _LoginFormState extends State<LoginForm> {
           obscureText: true,
         ),
         const SizedBox(height: 20),
-        const CuidapetDefaultButton(
+        CuidapetDefaultButton(
+          onPressed: () {},
           label: 'Entrar',
         ),
       ],

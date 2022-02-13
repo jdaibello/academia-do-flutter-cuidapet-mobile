@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:cuidapet_mobile/app/core/exceptions/failure_exception.dart';
 import 'package:cuidapet_mobile/app/core/exceptions/user_exists_exception.dart';
 import 'package:cuidapet_mobile/app/core/exceptions/user_not_found_exception.dart';
 import 'package:cuidapet_mobile/app/core/helpers/logger.dart';
+import 'package:cuidapet_mobile/app/core/push_notification/push_notification.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client_exception.dart';
+import 'package:cuidapet_mobile/app/models/confirm_login_model.dart';
+import 'package:cuidapet_mobile/app/models/user_model.dart';
 import 'package:cuidapet_mobile/app/repositories/user/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -63,6 +68,35 @@ class UserRepositoryImpl implements UserRepository {
 
       _log.error('Erro ao realizar login', e, s);
       throw FailureException(message: 'Erro ao realizar login');
+    }
+  }
+
+  @override
+  Future<ConfirmLoginModel> confirmLogin() async {
+    try {
+      final deviceToken = await PushNotification().getDeviceToken();
+      final result = await _restClient.auth().patch(
+        '/auth/confirm',
+        data: {
+          'ios_token': Platform.isIOS ? deviceToken : null,
+          'android_token': Platform.isAndroid ? deviceToken : null,
+        },
+      );
+
+      return ConfirmLoginModel.fromMap(result.data);
+    } on RestClientException {
+      throw FailureException(message: 'Erro ao confirmar login');
+    }
+  }
+
+  @override
+  Future<UserModel> getUserLogged() async {
+    try {
+      final result = await _restClient.auth().get('/user/');
+      return UserModel.fromMap(result.data);
+    } on RestClientException catch (e, s) {
+      _log.error('Erro ao buscar dados do usuário', e, s);
+      throw FailureException(message: 'Erro ao buscar dados do usuário');
     }
   }
 }

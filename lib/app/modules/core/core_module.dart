@@ -20,7 +20,11 @@ class CoreModule extends Module {
       export: true,
     ),
     Bind.factory<RestClient>(
-      (i) => DioRestClient(),
+      (i) => DioRestClient(
+        localStorage: i(),
+        localSecurityStorage: i(),
+        log: i(),
+      ),
       export: true,
     ),
     Bind.lazySingleton<Logger>(
@@ -46,6 +50,7 @@ class CoreModule extends Module {
       (i) => UserServiceImpl(
         userRepository: i(),
         log: i(),
+        localStorage: i(),
       ),
       export: true,
     ),

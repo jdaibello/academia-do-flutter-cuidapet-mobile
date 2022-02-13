@@ -1,3 +1,4 @@
+import 'package:cuidapet_mobile/app/core/push_notification/push_notification.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/size_screen_extension.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/theme_extension.dart';
 import 'package:cuidapet_mobile/app/modules/auth/login/widgets/login_form.dart';
@@ -12,6 +13,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    PushNotification().getDeviceToken().then((token) => debugPrint(token));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

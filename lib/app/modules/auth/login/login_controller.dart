@@ -1,3 +1,5 @@
+import 'package:cuidapet_mobile/app/core/exceptions/social_login_cancelled_exception.dart';
+import 'package:cuidapet_mobile/app/core/exceptions/user_exists_exception.dart';
 import 'package:cuidapet_mobile/app/core/exceptions/user_not_found_exception.dart';
 import 'package:cuidapet_mobile/app/core/helpers/logger.dart';
 import 'package:cuidapet_mobile/app/core/ui/widgets/loader.dart';
@@ -41,6 +43,14 @@ abstract class _LoginControllerBase with Store {
       await _userService.socialLogin(loginType);
       Loader.hide();
       Modular.to.navigate('/auth/');
+    } on SocialLoginCancelledException {
+      _log.error('Login cancelado');
+      Loader.hide();
+      Messages.info('Login cancelado');
+    } on UserExistsException catch (e, s) {
+      _log.error('Usuário registrado com outro provedor', e, s);
+      Loader.hide();
+      Messages.alert(e.message ?? '');
     } catch (e, s) {
       _log.error('Erro ao realizar login', e, s);
       Loader.hide();

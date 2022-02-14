@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cuidapet</string>
+    <string name="facebook_app_id">467765531568673</string>
+    <string name="fb_login_protocol_scheme">fb467765531568673</string>
+    <string name="facebook_client_token">6dae5746e9a271cce06b5e2d3071cc22</string>
+</resources>

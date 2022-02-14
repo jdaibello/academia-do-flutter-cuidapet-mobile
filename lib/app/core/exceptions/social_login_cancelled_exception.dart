@@ -1,0 +1,1 @@
+class SocialLoginCancelledException implements Exception {}

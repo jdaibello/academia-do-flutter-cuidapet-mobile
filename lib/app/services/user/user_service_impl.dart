@@ -39,6 +39,8 @@ class UserServiceImpl implements UserService {
         email: email,
         password: password,
       );
+
+      await login(email, password);
     } on FirebaseAuthException catch (e, s) {
       _log.error('Erro ao criar usuário no FirebaseAuth', e, s);
       throw FailureException(message: 'Erro ao criar usuário no FirebaseAuth');

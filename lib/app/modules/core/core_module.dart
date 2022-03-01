@@ -28,6 +28,7 @@ class CoreModule extends Module {
         localStorage: i(),
         localSecurityStorage: i(),
         log: i(),
+        authStore: i(),
       ),
       export: true,
     ),
